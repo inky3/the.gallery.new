@@ -2,120 +2,86 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useState } from "react";
-import { galleryCategories } from "@/data/gallery";
-
-const links = [
-  { href: "/", label: "Home" },
-  { href: "/projects", label: "Projects" },
-  { href: "/profile", label: "Profile" },
-];
+import { useEffect, useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+import { nav } from "@/lib/data";
 
 export default function Nav() {
   const pathname = usePathname();
-  const [galleryOpen, setGalleryOpen] = useState(false);
-  const [mobileOpen, setMobileOpen] = useState(false);
+  const [open, setOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
 
-  const isActive = (href: string) =>
-    href === "/" ? pathname === "/" : pathname?.startsWith(href);
-  const isGalleryActive = pathname?.startsWith("/gallery");
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 8);
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
 
   return (
-    <header className="sticky top-0 z-50 bg-ink border-b border-white/10 backdrop-blur">
-      <div className="mx-auto max-w-wrap px-5 md:px-8 h-16 flex items-center justify-between">
-        <Link href="/" className="font-display text-lg tracking-tight text-paper">
-          THE.GALLERY
+    <header
+      className={`sticky top-0 z-50 transition-colors duration-300 border-b ${
+        scrolled ? "backdrop-blur-md bg-bg/85 border-line" : "bg-transparent border-transparent"
+      }`}
+    >
+      <div className="mx-auto max-w-[1280px] px-4 md:px-16 flex items-center justify-between h-20">
+        <Link href="/" className="font-display italic text-2xl tracking-tight">
+          The.gallery
         </Link>
 
-        {/* Desktop nav */}
-        <nav aria-label="Primary" className="hidden md:flex items-center gap-1">
-          {links.map((l) => (
-            <Link
-              key={l.href}
-              href={l.href}
-              className={`relative px-3 py-2 text-sm transition-colors ${
-                isActive(l.href) ? "text-violet-soft" : "text-paper/85 hover:text-paper"
-              }`}
-            >
-              {l.label}
-              {isActive(l.href) && (
-                <span className="absolute left-3 right-3 -bottom-[1px] h-[2px] bg-violet" />
-              )}
-            </Link>
-          ))}
-
-          <div
-            className="relative"
-            onMouseEnter={() => setGalleryOpen(true)}
-            onMouseLeave={() => setGalleryOpen(false)}
-          >
-            <button
-              className={`px-3 py-2 text-sm transition-colors ${
-                isGalleryActive ? "text-violet-soft" : "text-paper/85 hover:text-paper"
-              }`}
-              aria-expanded={galleryOpen}
-              onClick={() => setGalleryOpen((v) => !v)}
-            >
-              Gallery
-            </button>
-            {galleryOpen && (
-              <div
-                role="menu"
-                className="absolute right-0 top-full mt-1 min-w-[180px] rounded-md border border-white/10 bg-ink-soft py-1 shadow-xl"
+        <nav className="hidden md:flex items-center gap-8 text-sm">
+          {nav.map((item) => {
+            const active = pathname === item.href.split("#")[0];
+            return (
+              <Link
+                key={item.href}
+                href={item.href}
+                className={`relative pb-1 transition-colors ${
+                  active ? "text-ink" : "text-muted hover:text-ink"
+                }`}
               >
-                {galleryCategories.map((c) => (
-                  <Link
-                    key={c.slug}
-                    href={`/gallery/${c.slug}`}
-                    role="menuitem"
-                    className="block px-4 py-2 text-sm text-paper/85 hover:bg-white/5 hover:text-paper"
-                  >
-                    {c.title}
-                  </Link>
-                ))}
-              </div>
-            )}
-          </div>
+                {item.label}
+                {active && (
+                  <motion.span
+                    layoutId="nav-underline"
+                    className="absolute left-0 right-0 -bottom-0.5 h-[2px] bg-accent"
+                    transition={{ type: "spring", stiffness: 500, damping: 40 }}
+                  />
+                )}
+              </Link>
+            );
+          })}
         </nav>
 
-        {/* Mobile toggle */}
         <button
-          className="md:hidden text-paper p-2"
-          aria-label="Menu"
-          aria-expanded={mobileOpen}
-          onClick={() => setMobileOpen((v) => !v)}
+          onClick={() => setOpen((v) => !v)}
+          className="md:hidden text-sm border border-ink px-3 py-1.5"
+          aria-expanded={open}
+          aria-label="Toggle menu"
         >
-          <span className="block w-5 h-[2px] bg-paper mb-1.5" />
-          <span className="block w-5 h-[2px] bg-paper mb-1.5" />
-          <span className="block w-5 h-[2px] bg-paper" />
+          {open ? "Close" : "Menu"}
         </button>
       </div>
 
-      {mobileOpen && (
-        <div className="md:hidden border-t border-white/10 bg-ink-soft">
-          {links.map((l) => (
-            <Link
-              key={l.href}
-              href={l.href}
-              onClick={() => setMobileOpen(false)}
-              className="block px-5 py-3 text-sm text-paper/90 border-b border-white/5"
-            >
-              {l.label}
-            </Link>
-          ))}
-          <div className="px-5 py-3 text-sm text-paper/60">Gallery</div>
-          {galleryCategories.map((c) => (
-            <Link
-              key={c.slug}
-              href={`/gallery/${c.slug}`}
-              onClick={() => setMobileOpen(false)}
-              className="block px-8 py-2.5 text-sm text-paper/90 border-b border-white/5"
-            >
-              {c.title}
-            </Link>
-          ))}
-        </div>
-      )}
+      <AnimatePresence>
+        {open && (
+          <motion.div
+            initial={{ height: 0 }}
+            animate={{ height: "auto" }}
+            exit={{ height: 0 }}
+            transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
+            className="md:hidden overflow-hidden border-b border-line bg-bg"
+          >
+            <div className="px-4 py-6 flex flex-col gap-4 text-lg font-display">
+              {nav.map((item) => (
+                <Link key={item.href} href={item.href} onClick={() => setOpen(false)}>
+                  {item.label}
+                </Link>
+              ))}
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </header>
   );
 }

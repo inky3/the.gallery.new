@@ -1,3 +1,0 @@
-User-agent: *
-Allow: /
-Sitemap: https://inky3.github.io/the.gallery/sitemap.xml

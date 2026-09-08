@@ -1,52 +1,50 @@
 import type { Metadata } from "next";
+import { Cormorant_Garamond, Archivo, JetBrains_Mono } from "next/font/google";
 import "./globals.css";
 import Nav from "@/components/Nav";
 import Footer from "@/components/Footer";
+import CursorDot from "@/components/CursorDot";
 
-const SITE_URL = "https://inky3.github.io/the.gallery";
+const cormorant = Cormorant_Garamond({
+  subsets: ["latin"],
+  variable: "--font-cormorant",
+  weight: ["400", "500", "600"],
+  style: ["normal", "italic"],
+});
+
+const archivo = Archivo({
+  subsets: ["latin"],
+  variable: "--font-archivo",
+  weight: ["400", "500", "600"],
+});
+
+const jetbrains = JetBrains_Mono({
+  subsets: ["latin"],
+  variable: "--font-jetbrains",
+  weight: ["400", "500"],
+});
 
 export const metadata: Metadata = {
-  metadataBase: new URL(SITE_URL),
-  title: {
-    default: "THE.GALLERY — Krittanan Atireglarp",
-    template: "%s — THE.GALLERY",
-  },
+  title: "The.gallery — Krittanan Atireglarp, UX/UI Designer",
   description:
-    "UX/UI and graphic design portfolio of Krittanan 'Boom' Atireglarp — case studies, visual work, and a resume, in one quiet archive.",
+    "A personal gallery of UX/UI design, experiments, and creative work by Krittanan Atireglarp.",
   openGraph: {
-    title: "THE.GALLERY — Krittanan Atireglarp",
-    description:
-      "UX/UI and graphic design portfolio of Krittanan 'Boom' Atireglarp — case studies, visual work, and a resume, in one quiet archive.",
-    url: SITE_URL,
-    siteName: "THE.GALLERY",
-    images: ["/img/profile.jpg"],
-    type: "website",
+    images: ["https://the-gallery-new.vercel.app/img/profile.jpg"],
   },
   twitter: {
     card: "summary_large_image",
-    title: "THE.GALLERY — Krittanan Atireglarp",
-    description: "UX/UI and graphic design portfolio of Krittanan 'Boom' Atireglarp.",
-  },
-  icons: {
-    icon: "/favicon.svg",
   },
 };
 
-export default function RootLayout({ children }: { children: React.ReactNode }) {
+export default function RootLayout({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
   return (
-    <html lang="en">
-      <head>
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
-        <link
-          href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap"
-          rel="stylesheet"
-        />
-      </head>
+    <html lang="en" className={`${cormorant.variable} ${archivo.variable} ${jetbrains.variable}`}>
       <body className="font-body antialiased">
-        <a href="#main" className="skip-link">
-          Skip to content
-        </a>
+        <CursorDot />
         <Nav />
         <main id="main">{children}</main>
         <Footer />

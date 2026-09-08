@@ -5,32 +5,28 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        ink: "#0B0B0C",
-        "ink-soft": "#17171A",
-        paper: "#F6F5F2",
-        "paper-elevated": "#FFFFFF",
-        line: "#DEDBD3",
-        muted: "#6B6963",
-        violet: {
-          DEFAULT: "#4B2E83",
-          soft: "#EFE9F7",
-          dim: "#3A2266",
-        },
-        signal: "#E8590C",
+        bg: "#FAFAFA",
+        "bg-inverted": "#0A0A0A",
+        ink: "#0A0A0A",
+        "ink-inverted": "#FFFFFF",
+        accent: "#7C3AED",
+        "accent-soft": "#EDE9FE",
+        "accent-glow": "#A78BFA",
+        "accent-dark": "#5B21B6",
+        muted: "#737373",
+        line: "#E5E5E5",
       },
       fontFamily: {
-        display: ["var(--font-display)", "ui-serif", "Georgia", "serif"],
-        body: ["var(--font-body)", "ui-sans-serif", "system-ui", "Arial", "sans-serif"],
+        display: ["var(--font-cormorant)", "serif"],
+        body: ["var(--font-archivo)", "sans-serif"],
+        mono: ["var(--font-jetbrains)", "monospace"],
       },
-      maxWidth: {
-        wrap: "1180px",
-      },
-      letterSpacing: {
-        label: "0.08em",
+      borderRadius: {
+        none: "0px",
+        card: "2px",
       },
     },
   },
   plugins: [],
 };
-
 export default config;

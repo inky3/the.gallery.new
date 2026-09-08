@@ -3,8 +3,7 @@
 @tailwind utilities;
 
 :root {
-  --font-display: "Fraunces", ui-serif, Georgia, serif;
-  --font-body: "IBM Plex Sans", ui-sans-serif, system-ui, Arial, sans-serif;
+  color-scheme: light;
 }
 
 html {
@@ -12,54 +11,69 @@ html {
 }
 
 body {
-  background: #f6f5f2;
-  color: #0b0b0c;
+  background-color: #FAFAFA;
+  color: #0A0A0A;
 }
 
 ::selection {
-  background: #4b2e83;
-  color: #f6f5f2;
+  background: #7C3AED;
+  color: #FFFFFF;
 }
 
-/* Visible keyboard focus everywhere */
-a:focus-visible,
-button:focus-visible,
-summary:focus-visible {
-  outline: 2px solid #4b2e83;
+:focus-visible {
+  outline: 2px solid #7C3AED;
   outline-offset: 3px;
-  border-radius: 2px;
 }
 
-.skip-link {
-  position: absolute;
-  left: -9999px;
-  top: 0;
-  z-index: 999;
-  background: #f6f5f2;
-  color: #0b0b0c;
-  padding: 0.75rem 1.25rem;
+.text-balance {
+  text-wrap: balance;
 }
-.skip-link:focus {
-  left: 1rem;
-  top: 1rem;
+
+/* Wall label: uppercase mono metadata, used for plate numbers / categories / years */
+.wall-label {
+  font-family: var(--font-jetbrains), monospace;
+  font-size: 0.75rem;
+  line-height: 1.4;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: #737373;
+}
+
+/* Sharp gallery-frame card: no radius, hairline border, purple on hover */
+.frame-card {
+  border-radius: 0;
+  border: 1px solid #E5E5E5;
+  transition: border-color 300ms ease;
+}
+.frame-card:hover {
+  border-color: #7C3AED;
+}
+
+/* Custom cursor dot, desktop only, disabled on touch + reduced motion */
+.cursor-dot {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 8px;
+  height: 8px;
+  border-radius: 999px;
+  background: #7C3AED;
+  pointer-events: none;
+  z-index: 100;
+  mix-blend-mode: difference;
+  transform: translate(-50%, -50%);
+}
+
+@media (hover: none) {
+  .cursor-dot { display: none; }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  *,
-  *::before,
-  *::after {
-    animation-duration: 0.01ms !important;
+  *, *::before, *::after {
+    animation-duration: 0.001ms !important;
     animation-iteration-count: 1 !important;
-    transition-duration: 0.01ms !important;
+    transition-duration: 0.001ms !important;
     scroll-behavior: auto !important;
   }
-}
-
-/* Plate caption, museum-label style — used sparingly and only for image captions */
-.plate-label {
-  font-family: var(--font-body);
-  font-size: 0.72rem;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  color: #6b6963;
+  .cursor-dot { display: none; }
 }

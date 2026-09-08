@@ -1,58 +1,58 @@
-import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import Reveal from "@/components/Reveal";
-import { galleryCategories, getCategory } from "@/data/gallery";
+import PlateCard from "@/components/PlateCard";
+import { galleryCategories } from "@/lib/data";
 
 export function generateStaticParams() {
   return galleryCategories.map((c) => ({ category: c.slug }));
 }
 
-export function generateMetadata({ params }: { params: { category: string } }): Metadata {
-  const c = getCategory(params.category);
-  if (!c) return {};
-  return { title: c.title, description: c.blurb };
+export function generateMetadata({ params }: { params: { category: string } }) {
+  const cat = galleryCategories.find((c) => c.slug === params.category);
+  return { title: cat ? `${cat.label} — The.gallery` : "Gallery — The.gallery" };
 }
 
 export default function GalleryCategoryPage({ params }: { params: { category: string } }) {
-  const category = getCategory(params.category);
-  if (!category) notFound();
+  const cat = galleryCategories.find((c) => c.slug === params.category);
+  if (!cat) notFound();
 
   return (
-    <div className="mx-auto max-w-wrap px-5 md:px-8 py-14">
-      <p className="plate-label mb-2">Gallery</p>
-      <h1 className="font-display text-3xl md:text-4xl text-ink mb-3">{category.title}</h1>
-      <p className="text-muted max-w-[60ch] mb-10">{category.blurb}</p>
+    <div className="mx-auto max-w-[1280px] px-4 md:px-16 pt-16 pb-24">
+      <Reveal className="flex flex-wrap items-center gap-3 wall-label">
+        <Link href="/archive" className="hover:text-accent">Archive</Link>
+        <span>/</span>
+        <span className="text-accent">{cat.label}</span>
+      </Reveal>
 
-      <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
-        {category.images.map((img, i) => (
-          <Reveal key={img.src} delay={(i % 6) * 0.05}>
-            <figure className="border border-line bg-paper-elevated">
-              <div className="aspect-[4/3] overflow-hidden bg-ink">
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img src={img.src} alt={img.caption} className="h-full w-full object-cover" />
-              </div>
-              <figcaption className="plate-label p-3">{img.caption}</figcaption>
-            </figure>
+      <Reveal delay={0.06}>
+        <h1 className="font-display text-5xl md:text-6xl mt-3">{cat.label}</h1>
+      </Reveal>
+      <Reveal delay={0.12}>
+        <p className="text-muted mt-4 max-w-md">{cat.description}</p>
+      </Reveal>
+
+      <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-5 mt-14">
+        {cat.items.map((item, i) => (
+          <Reveal key={item.title} delay={Math.min(i * 0.04, 0.4)}>
+            <PlateCard href="#" tag={cat.label} title={item.title} img={item.img} />
           </Reveal>
         ))}
       </div>
 
-      <div className="mt-12 flex flex-wrap gap-2">
-        {galleryCategories.map((c) => (
-          <Link
-            key={c.slug}
-            href={`/gallery/${c.slug}`}
-            className={`text-sm px-3 py-1.5 border ${
-              c.slug === category.slug
-                ? "border-violet text-violet bg-violet-soft"
-                : "border-line text-muted hover:border-ink hover:text-ink"
-            }`}
-          >
-            {c.title}
-          </Link>
-        ))}
-      </div>
+      <Reveal delay={0.2} className="mt-16 pt-8 border-t border-line flex flex-wrap gap-3">
+        {galleryCategories
+          .filter((c) => c.slug !== cat.slug)
+          .map((c) => (
+            <Link
+              key={c.slug}
+              href={`/gallery/${c.slug}`}
+              className="text-sm border border-ink px-3 py-1.5 hover:bg-ink hover:text-white transition-colors"
+            >
+              {c.label}
+            </Link>
+          ))}
+      </Reveal>
     </div>
   );
 }

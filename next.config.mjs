@@ -1,12 +1,11 @@
 /** @type {import('next').NextConfig} */
-
 const nextConfig = {
-  output: "export",
   images: {
-    unoptimized: true,
+    remotePatterns: [
+      { protocol: "https", hostname: "the-gallery-new.vercel.app" },
+      { protocol: "https", hostname: "inky3.github.io" },
+    ],
   },
-  optimizeFonts: false,
-  trailingSlash: true,
 };
 
 export default nextConfig;

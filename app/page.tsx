@@ -1,106 +1,156 @@
 import Link from "next/link";
-import HeroReveal from "@/components/HeroReveal";
 import Reveal from "@/components/Reveal";
-import ProjectCard from "@/components/ProjectCard";
-import { projects } from "@/data/projects";
+import WorkCard from "@/components/WorkCard";
+import { focusAreas, profile, projects } from "@/lib/data";
 
-const focus = [
-  {
-    title: "UX / UI",
-    body: "Accessible, component-driven design systems built from real research, not templates.",
-  },
-  {
-    title: "Front-End",
-    body: "Next.js and React builds with clean, deliberate CSS — no unnecessary dependencies.",
-  },
-  {
-    title: "Graphics",
-    body: "Visual identities, posters, and product imagery across print and screen.",
-  },
-];
-
-export default function Home() {
+export default function HomePage() {
   const featured = projects.filter((p) => p.featured);
+  const [heroFeature, ...rest] = featured;
 
   return (
-    <>
-      <section className="mx-auto max-w-wrap px-5 md:px-8 pt-16 md:pt-24 pb-14 grid md:grid-cols-[1.2fr_0.8fr] gap-10 items-end">
-        <div>
-          <p className="plate-label mb-4">Studio Archive</p>
-          <HeroReveal>
-            <h1 className="font-display text-4xl md:text-6xl leading-[1.05] text-ink">
-              A personal gallery of work &amp; memory
-            </h1>
-          </HeroReveal>
-          <p className="mt-5 text-lg text-muted max-w-[46ch]">
-            Case studies, visual work, and a resume — kept in one quiet, intentional archive.
-          </p>
-          <div className="mt-7 flex flex-wrap gap-3">
-            <Link
-              href="/projects"
-              className="inline-flex items-center rounded-full bg-ink px-5 py-2.5 text-sm font-medium text-paper hover:bg-ink-soft transition-colors"
-            >
-              Explore projects
-            </Link>
-            <Link
-              href="/profile"
-              className="inline-flex items-center rounded-full border border-ink px-5 py-2.5 text-sm font-medium text-ink hover:bg-ink hover:text-paper transition-colors"
-            >
-              About the artist
-            </Link>
+    <div>
+      {/* Hero */}
+      <section className="mx-auto max-w-[1280px] px-4 md:px-16 pt-16 md:pt-24 pb-16">
+        <div className="grid md:grid-cols-12 gap-6 items-end">
+          <div className="md:col-span-9">
+            <Reveal>
+              <h1 className="font-display leading-[0.9] text-[16vw] md:text-[7.5rem] tracking-[-0.02em]">
+                The.gallery
+              </h1>
+            </Reveal>
+          </div>
+          <div className="md:col-span-3 md:pb-4">
+            <Reveal delay={0.1}>
+              <p className="font-display text-xl md:text-2xl">
+                {profile.name} <span className="text-muted">— UX/UI Designer</span>
+              </p>
+              <p className="text-sm text-muted mt-3 leading-relaxed">
+                A personal exhibition of every project I've made — polished client work, honest
+                experiments, and the pieces still in progress.
+              </p>
+            </Reveal>
           </div>
         </div>
-        <div className="aspect-[4/5] border border-line bg-violet-soft overflow-hidden">
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img src="/img/profile.jpg" alt="Krittanan Atireglarp" className="h-full w-full object-cover" />
-        </div>
-      </section>
 
-      <section className="border-y border-line bg-paper-elevated">
-        <div className="mx-auto max-w-wrap px-5 md:px-8 py-14">
-          <p className="plate-label mb-6">Areas of focus</p>
-          <div className="grid md:grid-cols-3 gap-8">
-            {focus.map((f) => (
-              <div key={f.title}>
-                <h2 className="font-display text-xl text-ink mb-2">{f.title}</h2>
-                <p className="text-sm text-muted">{f.body}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
+        <Reveal delay={0.18} className="mt-10 flex flex-wrap items-center gap-4">
+          <span className="inline-flex items-center gap-2 rounded-full border border-ink px-4 py-1.5 text-sm">
+            <span className="h-2 w-2 rounded-full bg-accent" />
+            {profile.availability}
+          </span>
+        </Reveal>
 
-      <section className="mx-auto max-w-wrap px-5 md:px-8 py-16">
-        <div className="flex items-end justify-between mb-8">
-          <div>
-            <p className="plate-label mb-2">Featured work</p>
-            <h2 className="font-display text-2xl md:text-3xl text-ink">On view now</h2>
-          </div>
-          <Link href="/projects" className="text-sm text-violet hover:text-violet-dim underline underline-offset-4">
-            All projects
+        <Reveal delay={0.24} className="mt-6 flex flex-wrap gap-4">
+          <Link
+            href="/projects"
+            className="inline-flex items-center gap-2 bg-ink text-white px-6 py-3 text-sm hover:bg-accent transition-colors"
+          >
+            View selected work
           </Link>
-        </div>
-        <div className="grid sm:grid-cols-2 gap-5">
-          {featured.map((p, i) => (
-            <Reveal key={p.slug} delay={i * 0.06}>
-              <ProjectCard project={p} plateNo={i + 1} />
+          <a
+            href={profile.resumeUrl}
+            className="inline-flex items-center gap-2 border border-ink px-6 py-3 text-sm hover:bg-ink hover:text-white transition-colors"
+          >
+            Download résumé
+          </a>
+        </Reveal>
+      </section>
+
+      {/* Areas of focus */}
+      <section className="mx-auto max-w-[1280px] px-4 md:px-16 py-16 border-t border-line">
+        <Reveal>
+          <p className="wall-label">Areas of focus</p>
+          <h2 className="font-display text-3xl md:text-4xl mt-2">Core disciplines.</h2>
+        </Reveal>
+        <div className="grid sm:grid-cols-3 gap-px bg-line mt-10 border border-line">
+          {focusAreas.map((f, i) => (
+            <Reveal key={f.title} delay={i * 0.08} className="bg-bg p-8">
+              <span className="wall-label text-accent">0{i + 1}</span>
+              <h3 className="font-display text-2xl mt-3">{f.title}</h3>
+              <p className="text-sm text-muted mt-2 leading-relaxed">{f.note}</p>
             </Reveal>
           ))}
         </div>
       </section>
 
-      <section className="bg-ink text-paper">
-        <div className="mx-auto max-w-wrap px-5 md:px-8 py-16 text-center">
-          <h2 className="font-display text-2xl md:text-3xl mb-3">Like what you see?</h2>
-          <p className="text-paper/60 mb-6">Let&rsquo;s collaborate on a clean, accessible interface.</p>
-          <Link
-            href="/profile"
-            className="inline-flex items-center rounded-full bg-violet px-6 py-3 text-sm font-medium hover:bg-violet-dim transition-colors"
-          >
-            Get in touch
+      {/* Bento featured wall */}
+      <section className="mx-auto max-w-[1280px] px-4 md:px-16 py-16 border-t border-line">
+        <Reveal className="flex items-end justify-between gap-4 flex-wrap">
+          <div>
+            <p className="wall-label">Selected work</p>
+            <h2 className="font-display text-3xl md:text-4xl mt-2">On view now.</h2>
+          </div>
+          <Link href="/projects" className="text-sm border-b border-ink hover:border-accent hover:text-accent transition-colors">
+            All projects →
           </Link>
+        </Reveal>
+
+        <div className="grid md:grid-cols-3 gap-6 mt-10">
+          <Reveal delay={0.05} className="md:col-span-2 md:row-span-2">
+            <WorkCard
+              href={`/projects/${heroFeature.slug}`}
+              plate={heroFeature.plate}
+              category={heroFeature.category}
+              title={heroFeature.title}
+              summary={heroFeature.summary}
+              cover={heroFeature.cover}
+              status={heroFeature.status}
+              large
+            />
+          </Reveal>
+          {rest.slice(0, 4).map((p, i) => (
+            <Reveal key={p.slug} delay={0.1 + i * 0.08}>
+              <WorkCard
+                href={`/projects/${p.slug}`}
+                plate={p.plate}
+                category={p.category}
+                title={p.title}
+                summary={p.summary}
+                cover={p.cover}
+                status={p.status}
+              />
+            </Reveal>
+          ))}
         </div>
       </section>
-    </>
+
+      {/* Inverted about strip */}
+      <section className="bg-bg-inverted text-ink-inverted py-24 mt-16">
+        <div className="mx-auto max-w-[1280px] px-4 md:px-16">
+          <Reveal>
+            <p className="wall-label text-white/40">Statement</p>
+            <h2 className="font-display text-4xl md:text-5xl mt-3 max-w-2xl text-balance">
+              The gallery holds everything.
+            </h2>
+          </Reveal>
+          <Reveal delay={0.1} className="mt-6 max-w-xl">
+            <p className="text-white/70 leading-relaxed">{profile.philosophy}</p>
+          </Reveal>
+          <Reveal delay={0.16} className="mt-8">
+            <Link
+              href="/archive"
+              className="inline-flex items-center gap-2 border border-white/40 px-6 py-3 text-sm hover:bg-white hover:text-ink transition-colors"
+            >
+              Walk through the archive
+            </Link>
+          </Reveal>
+        </div>
+      </section>
+
+      {/* Contact CTA */}
+      <section className="mx-auto max-w-[1280px] px-4 md:px-16 py-20">
+        <Reveal className="border border-line p-10 md:p-14 flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
+          <div>
+            <h2 className="font-display text-3xl md:text-4xl">Let's work together.</h2>
+            <p className="text-muted mt-2">{profile.email}</p>
+          </div>
+          <a
+            href={`mailto:${profile.email}`}
+            className="inline-flex items-center gap-2 bg-accent text-white px-6 py-3 text-sm hover:bg-accent-dark transition-colors shrink-0"
+          >
+            Send an email
+          </a>
+        </Reveal>
+      </section>
+    </div>
   );
 }

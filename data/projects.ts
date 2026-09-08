@@ -227,7 +227,7 @@ export const projects: Project[] = [
     title: "The Memories",
     category: "Photography • Identity",
     tagline:
-      "A photography portfolio in a warm, film-vintage palette, built around the idea of memory — and the layout groundwork that later shaped THE.GALLERY.",
+      "A photography portfolio in a warm, film-vintage palette, built around the idea of memory — and the layout groundwork that later shaped The.Gallery.",
     cover: "/img/project/thememories.jpg",
     gallery: ["/img/project/thememories/index.jpg", "/img/project/thememories/port.jpg", "/img/project/thememories/about.jpg"],
     year: "2024–2025",

@@ -1,127 +1,119 @@
-import type { Metadata } from "next";
+import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { projects, getProject } from "@/data/projects";
+import Reveal from "@/components/Reveal";
+import { projects } from "@/lib/data";
 
 export function generateStaticParams() {
   return projects.map((p) => ({ slug: p.slug }));
 }
 
-export function generateMetadata({ params }: { params: { slug: string } }): Metadata {
-  const project = getProject(params.slug);
-  if (!project) return {};
-  return {
-    title: project.title,
-    description: project.tagline,
-    openGraph: { title: project.title, description: project.tagline, images: [project.cover] },
-  };
+export function generateMetadata({ params }: { params: { slug: string } }) {
+  const project = projects.find((p) => p.slug === params.slug);
+  return { title: project ? `${project.title} — The.gallery` : "Project — The.gallery" };
 }
 
 export default function ProjectPage({ params }: { params: { slug: string } }) {
-  const project = getProject(params.slug);
+  const project = projects.find((p) => p.slug === params.slug);
   if (!project) notFound();
 
   return (
-    <article>
-      <header className="bg-ink text-paper">
-        <div className="mx-auto max-w-wrap px-5 md:px-8 py-14 md:py-20">
-          <p className="plate-label !text-paper/50 mb-3">{project.category}</p>
-          <h1 className="font-display text-3xl md:text-5xl mb-4">{project.title}</h1>
-          <p className="text-paper/70 max-w-[60ch] text-lg">{project.tagline}</p>
-
-          <dl className="mt-8 grid grid-cols-2 sm:grid-cols-4 gap-6 text-sm">
-            <div>
-              <dt className="text-paper/45 mb-1">Year</dt>
-              <dd>{project.year}</dd>
-            </div>
-            <div>
-              <dt className="text-paper/45 mb-1">Role</dt>
-              <dd>{project.role.join(", ")}</dd>
-            </div>
-            <div className="col-span-2 sm:col-span-2">
-              <dt className="text-paper/45 mb-1">Stack</dt>
-              <dd>{project.stack.join(", ")}</dd>
-            </div>
-          </dl>
-
-          {project.links && project.links.length > 0 && (
-            <div className="mt-8 flex flex-wrap gap-3">
-              {project.links.map((l) => (
-                <a
-                  key={l.href}
-                  href={l.href}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center rounded-full border border-paper/30 px-4 py-2 text-sm hover:bg-paper hover:text-ink transition-colors"
-                >
-                  {l.label}
-                </a>
-              ))}
-            </div>
-          )}
-        </div>
-      </header>
-
-      <div className="aspect-[16/9] w-full bg-ink">
-        {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img src={project.cover} alt={project.title} className="h-full w-full object-cover" />
-      </div>
-
-      <div className="mx-auto max-w-wrap px-5 md:px-8 py-14 grid md:grid-cols-[220px_1fr] gap-10">
-        <nav aria-label="Sections" className="hidden md:block">
-          <ul className="sticky top-24 space-y-3 text-sm">
-            {project.sections.map((s) => (
-              <li key={s.heading}>
-                <a href={`#${slugify(s.heading)}`} className="text-muted hover:text-violet">
-                  {s.heading}
-                </a>
-              </li>
-            ))}
-          </ul>
-        </nav>
-
-        <div className="space-y-12 max-w-[70ch]">
-          {project.sections.map((s) => (
-            <section key={s.heading} id={slugify(s.heading)}>
-              <h2 className="font-display text-xl md:text-2xl text-ink mb-3">{s.heading}</h2>
-              {s.body && <p className="text-muted leading-relaxed mb-3">{s.body}</p>}
-              {s.bullets && (
-                <ul className="space-y-2">
-                  {s.bullets.map((b) => (
-                    <li key={b} className="text-muted leading-relaxed pl-4 relative before:content-['—'] before:absolute before:left-0 before:text-violet">
-                      {b}
-                    </li>
-                  ))}
-                </ul>
-              )}
-            </section>
-          ))}
-
-          {project.gallery && project.gallery.length > 0 && (
-            <section>
-              <h2 className="font-display text-xl md:text-2xl text-ink mb-4">Plates</h2>
-              <div className="grid sm:grid-cols-2 gap-4">
-                {project.gallery.map((src, i) => (
-                  <div key={src} className="border border-line">
-                    {/* eslint-disable-next-line @next/next/no-img-element */}
-                    <img src={src} alt={`${project.title} detail ${i + 1}`} className="w-full h-auto" />
-                  </div>
-                ))}
-              </div>
-            </section>
-          )}
-        </div>
-      </div>
-
-      <div className="mx-auto max-w-wrap px-5 md:px-8 pb-16">
-        <Link href="/projects" className="text-sm text-violet hover:text-violet-dim underline underline-offset-4">
+    <div className="mx-auto max-w-4xl px-4 md:px-16 pt-16 pb-24">
+      <Reveal>
+        <Link href="/projects" className="text-sm text-muted hover:text-accent transition-colors">
           ← Back to all projects
         </Link>
-      </div>
-    </article>
-  );
-}
+      </Reveal>
 
-function slugify(s: string) {
-  return s.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/(^-|-$)/g, "");
+      <Reveal delay={0.05} className="mt-6">
+        <p className="wall-label text-accent">{project.plate} — {project.category}</p>
+      </Reveal>
+
+      <Reveal delay={0.1}>
+        <h1 className="font-display text-4xl md:text-6xl mt-3 text-balance">{project.title}</h1>
+      </Reveal>
+
+      <Reveal delay={0.14}>
+        <p className="text-lg text-muted mt-4 max-w-2xl">{project.summary}</p>
+      </Reveal>
+
+      {project.status && (
+        <Reveal delay={0.17}>
+          <span className="inline-block mt-4 bg-bg-inverted text-ink-inverted wall-label px-3 py-1.5">
+            {project.status}
+          </span>
+        </Reveal>
+      )}
+
+      <Reveal delay={0.2} className="flex flex-wrap gap-x-10 gap-y-2 mt-8 text-sm">
+        <span><span className="text-muted">Year — </span>{project.year}</span>
+        <span><span className="text-muted">Role — </span>{project.role}</span>
+        <span><span className="text-muted">Stack — </span>{project.stack}</span>
+      </Reveal>
+
+      {project.links && project.links.length > 0 && (
+        <Reveal delay={0.24} className="flex flex-wrap gap-3 mt-6">
+          {project.links.map((link) => (
+            <a
+              key={link.url}
+              href={link.url}
+              target="_blank"
+              rel="noreferrer"
+              className="text-sm border border-ink px-4 py-2 hover:bg-ink hover:text-white transition-colors"
+            >
+              {link.label} ↗
+            </a>
+          ))}
+        </Reveal>
+      )}
+
+      <Reveal delay={0.28} className="relative aspect-[4/3] mt-10 frame-card overflow-hidden">
+        <Image src={project.cover} alt={project.title} fill sizes="800px" className="object-cover" />
+      </Reveal>
+
+      <div className="mt-14 space-y-12 max-w-2xl">
+        {project.sections.map((section, i) => (
+          <Reveal key={section.id} delay={0.1 + i * 0.04}>
+            <h2 className="font-display text-2xl md:text-3xl">{section.heading}</h2>
+            {section.paragraphs?.map((para, j) => (
+              <p key={j} className="text-ink/80 leading-relaxed mt-3">
+                {para}
+              </p>
+            ))}
+            {section.bullets && (
+              <ul className="mt-3 space-y-2">
+                {section.bullets.map((b, j) => (
+                  <li key={j} className="flex gap-3 text-ink/80 leading-relaxed">
+                    <span className="text-accent mt-1">—</span>
+                    <span>{b}</span>
+                  </li>
+                ))}
+              </ul>
+            )}
+          </Reveal>
+        ))}
+      </div>
+
+      {project.plates && project.plates.length > 0 && (
+        <div className="mt-16">
+          <Reveal>
+            <p className="wall-label">Plates</p>
+          </Reveal>
+          <div className="grid sm:grid-cols-2 gap-4 mt-4">
+            {project.plates.map((plate, i) => (
+              <Reveal key={plate.src} delay={i * 0.06} className="relative aspect-[4/3] frame-card overflow-hidden">
+                <Image src={plate.src} alt={plate.alt} fill sizes="500px" className="object-cover" />
+              </Reveal>
+            ))}
+          </div>
+        </div>
+      )}
+
+      <Reveal delay={0.1} className="mt-16 pt-8 border-t border-line">
+        <Link href="/projects" className="text-sm border-b border-ink hover:border-accent hover:text-accent transition-colors">
+          ← Back to all projects
+        </Link>
+      </Reveal>
+    </div>
+  );
 }
