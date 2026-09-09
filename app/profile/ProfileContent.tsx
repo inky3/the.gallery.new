@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import Reveal from "@/components/Reveal";
 import { profile } from "@/lib/data";
 import { useLanguage } from "@/lib/i18n";
@@ -33,8 +34,14 @@ export default function ProfileContent() {
       <div className="mx-auto max-w-[1280px] px-4 md:px-16 pt-16 pb-16">
         <div className="grid md:grid-cols-12 gap-10">
           <div className="md:col-span-4">
-            <Reveal className="relative aspect-[4/5] frame-card bg-bg-inverted flex items-center justify-center">
-              <span className="font-display text-8xl text-accent-glow">{initials(profile.name)}</span>
+            <Reveal className="relative aspect-[4/5] frame-card overflow-hidden">
+              <Image
+                src="/profile.jpg"
+                alt={profile.name}
+                fill
+                className="object-cover"
+                priority
+              />
             </Reveal>
           </div>
           <div className="md:col-span-8">

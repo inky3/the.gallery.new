@@ -84,7 +84,7 @@ export type Project = {
   plates?: { src: string; alt: string }[];
 };
 
-const IMG = "https://the-gallery-new.vercel.app/img";
+const IMG = "/img";
 
 export const projects: Project[] = [
   {
@@ -409,7 +409,7 @@ export type GalleryCategory = {
   items: GalleryItem[];
 };
 
-const GIMG = "https://the-gallery-new.vercel.app/img";
+const GIMG = "/img";
 
 export const galleryCategories: GalleryCategory[] = [
   {
