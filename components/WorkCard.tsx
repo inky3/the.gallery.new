@@ -40,8 +40,8 @@ export default function WorkCard({
             </span>
           )}
         </div>
-        <div className="p-5 flex-1 flex flex-col">
-          <p className="wall-label">{plate} — {category}</p>
+        <div className="p-5 flex-1 flex flex-col bg-bg-inverted text-ink-inverted">
+          <p className="wall-label text-accent-glow">{plate} — {category}</p>
           <motion.h3
             className={`font-display mt-2 ${large ? "text-3xl md:text-4xl" : "text-2xl"}`}
             whileHover={{ x: 4 }}
@@ -49,7 +49,7 @@ export default function WorkCard({
           >
             {title}
           </motion.h3>
-          <p className="text-sm text-muted mt-2 leading-relaxed">{summary}</p>
+          <p className="text-sm text-white/60 mt-2 leading-relaxed">{summary}</p>
         </div>
       </div>
     </Link>

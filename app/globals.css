@@ -49,25 +49,6 @@ body {
   border-color: #7C3AED;
 }
 
-/* Custom cursor dot, desktop only, disabled on touch + reduced motion */
-.cursor-dot {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 8px;
-  height: 8px;
-  border-radius: 999px;
-  background: #7C3AED;
-  pointer-events: none;
-  z-index: 100;
-  mix-blend-mode: difference;
-  transform: translate(-50%, -50%);
-}
-
-@media (hover: none) {
-  .cursor-dot { display: none; }
-}
-
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after {
     animation-duration: 0.001ms !important;
@@ -75,5 +56,4 @@ body {
     transition-duration: 0.001ms !important;
     scroll-behavior: auto !important;
   }
-  .cursor-dot { display: none; }
 }

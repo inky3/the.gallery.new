@@ -1,34 +1,36 @@
+"use client";
+
 import Link from "next/link";
 import { profile } from "@/lib/data";
+import { useLanguage } from "@/lib/i18n";
 
 export default function Footer() {
+  const { t } = useLanguage();
+
   return (
-    <footer className="bg-bg-inverted text-ink-inverted mt-32">
+    <footer className="bg-bg-inverted text-ink-inverted">
       <div className="mx-auto max-w-[1280px] px-4 md:px-16 py-16 grid gap-10 md:grid-cols-4">
         <div className="md:col-span-2">
           <p className="font-display italic text-2xl">The.gallery</p>
-          <p className="mt-3 text-sm text-white/60 max-w-xs">
-            A personal museum of client work, experiments, and the pieces still in progress.
-          </p>
+          <p className="mt-3 text-sm text-white/60 max-w-xs">{t.footer.tagline}</p>
         </div>
 
         <div>
-          <p className="wall-label text-white/40 mb-3">Quick links</p>
+          <p className="wall-label text-white/40 mb-3">{t.footer.quickLinks}</p>
           <ul className="space-y-1.5 text-sm">
-            <li><Link href="/projects" className="hover:text-accent-glow transition-colors">Work</Link></li>
-            <li><Link href="/archive" className="hover:text-accent-glow transition-colors">Archive</Link></li>
-            <li><Link href="/profile#about" className="hover:text-accent-glow transition-colors">About</Link></li>
-            <li><Link href="/profile#contact" className="hover:text-accent-glow transition-colors">Contact</Link></li>
+            <li><Link href="/projects" className="hover:text-accent-glow transition-colors">{t.nav.work}</Link></li>
+            <li><Link href="/archive" className="hover:text-accent-glow transition-colors">{t.nav.archive}</Link></li>
+            <li><Link href="/profile" className="hover:text-accent-glow transition-colors">{t.nav.profile}</Link></li>
             <li>
               <a href={profile.resumeUrl} className="hover:text-accent-glow transition-colors">
-                Résumé
+                {t.footer.resume}
               </a>
             </li>
           </ul>
         </div>
 
         <div>
-          <p className="wall-label text-white/40 mb-3">Elsewhere</p>
+          <p className="wall-label text-white/40 mb-3">{t.footer.elsewhere}</p>
           <ul className="space-y-1.5 text-sm">
             <li>
               <a href={`mailto:${profile.email}`} className="hover:text-accent-glow transition-colors">
@@ -56,8 +58,8 @@ export default function Footer() {
 
       <div className="border-t border-white/10">
         <div className="mx-auto max-w-[1280px] px-4 md:px-16 py-5 flex flex-col md:flex-row justify-between gap-2 wall-label text-white/40">
-          <span>© 2026 The.gallery — Krittanan Atireglarp</span>
-          <span>Built with Next.js · Framer Motion</span>
+          <span>{t.footer.copyright}</span>
+          <span>{t.footer.builtWith}</span>
         </div>
       </div>
     </footer>

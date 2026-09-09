@@ -17,9 +17,9 @@ const config: Config = {
         line: "#E5E5E5",
       },
       fontFamily: {
-        display: ["var(--font-cormorant)", "serif"],
-        body: ["var(--font-archivo)", "sans-serif"],
-        mono: ["var(--font-jetbrains)", "monospace"],
+        display: ["var(--font-cormorant)", "var(--font-noto-serif-thai)", "serif"],
+        body: ["var(--font-archivo)", "var(--font-noto-thai)", "sans-serif"],
+        mono: ["var(--font-jetbrains)", "var(--font-noto-thai)", "monospace"],
       },
       borderRadius: {
         none: "0px",

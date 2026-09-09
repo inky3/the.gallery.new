@@ -21,7 +21,7 @@ export default function FilterPills({
             className={`rounded-full px-4 py-1.5 text-sm border transition-colors ${
               isActive
                 ? "bg-accent border-accent text-white"
-                : "bg-transparent border-ink text-ink hover:bg-accent-soft hover:border-accent"
+                : "bg-transparent border-white/40 text-white hover:bg-accent/20 hover:border-accent-glow"
             }`}
           >
             {tag}

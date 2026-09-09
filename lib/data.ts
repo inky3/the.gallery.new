@@ -1,9 +1,15 @@
 export const profile = {
   name: "Krittanan Atireglarp",
   nickname: 'Krittanan "Boom" Atireglarp',
-  role: "Graphic Design Student · UX/UI Enthusiast",
+  role: {
+    en: "Graphic Design Student · UX/UI Enthusiast",
+    th: "นักศึกษาออกแบบกราฟิก · ผู้หลงใหลใน UX/UI",
+  },
   location: "Bangkok, Thailand",
-  availability: "Open to junior UX/UI & front-end roles — Bangkok or remote",
+  availability: {
+    en: "Open to junior UX/UI & front-end roles — Bangkok or remote",
+    th: "เปิดรับตำแหน่งงาน UX/UI และฟรอนต์เอนด์ระดับจูเนียร์ — กรุงเทพฯ หรือรีโมท",
+  },
   email: "krittanan.at@gmail.com",
   phone: "+66 85 649 6879",
   phoneHref: "tel:+66856496879",
@@ -15,11 +21,16 @@ export const profile = {
   github: "https://github.com/inky3/the.gallery",
   languages: ["Thai", "US English"],
   resumeUrl: "/resume.pdf",
-  summary:
-    "Graphic design student since 2022 at Suan Sunandha Rajabhat University. Alongside coursework, I've built experience in graphic design and taught myself coding and UX/UI design in my free time. I also play chess to keep my logical thinking sharp, and I'm always looking for new challenges to grow my skills.",
-  philosophy:
-    "This site holds everything — client case studies, self-directed experiments, and the physical work (books, terrariums, 3D renders) that doesn't fit a résumé line but shaped how I think. A prototype that never shipped still taught me something. The process matters as much as the polish, so it stays on the wall.",
+  summary: {
+    en: "Graphic design student since 2022 at Suan Sunandha Rajabhat University. Alongside coursework, I've built experience in graphic design and taught myself coding and UX/UI design in my free time. I also play chess to keep my logical thinking sharp, and I'm always looking for new challenges to grow my skills.",
+    th: "นักศึกษาออกแบบกราฟิกตั้งแต่ปี 2022 ที่มหาวิทยาลัยราชภัฏสวนสุนันทา นอกเหนือจากการเรียน ผมสั่งสมประสบการณ์ด้านกราฟิกดีไซน์ และฝึกฝนการเขียนโค้ดกับ UX/UI ด้วยตัวเองในเวลาว่าง ผมยังเล่นหมากรุกสากลเพื่อฝึกความคิดเชิงตรรกะ และมองหาความท้าทายใหม่ ๆ เพื่อพัฒนาทักษะอยู่เสมอ",
+  },
+  philosophy: {
+    en: "This site holds everything — client case studies, self-directed experiments, and the physical work (books, terrariums, 3D renders) that doesn't fit a résumé line but shaped how I think. A prototype that never shipped still taught me something. The process matters as much as the polish, so it stays on the wall.",
+    th: "เว็บไซต์นี้เก็บทุกอย่างไว้ — เคสสตัดี้จากงานลูกค้า การทดลองที่ทำเอง และงานฝีมือ (หนังสือ เทอเรียม โมเดล 3D) ที่ไม่มีที่ในเรซูเม่ แต่หล่อหลอมวิธีคิดของผม ต้นแบบที่ไม่เคยถูกสร้างจริงก็ยังสอนอะไรบางอย่างเสมอ กระบวนการสำคัญพอ ๆ กับความสมบูรณ์แบบ มันจึงยังอยู่บนผนังนี้",
+  },
   education: [
+
     { degree: "Graphic Design", school: "Suan Sunandha Rajabhat University", years: "2022–2026" },
   ],
   technicalSkills: [
@@ -488,22 +499,30 @@ export const archiveTags = [
 export const focusAreas = [
   {
     title: "UX / UI",
-    note: "Accessible, component-driven design systems built from real research, not templates.",
+    note: {
+      en: "Accessible, component-driven design systems built from real research, not templates.",
+      th: "ระบบดีไซน์ที่เข้าถึงง่ายและแยกเป็นคอมโพเนนต์ สร้างจากงานวิจัยจริง ไม่ใช่เทมเพลตสำเร็จรูป",
+    },
   },
   {
     title: "Front-End",
-    note: "Next.js and React builds with clean, deliberate CSS — no unnecessary dependencies.",
+    note: {
+      en: "Next.js and React builds with clean, deliberate CSS — no unnecessary dependencies.",
+      th: "พัฒนาด้วย Next.js และ React พร้อม CSS ที่ตั้งใจเขียนให้สะอาด ไม่พึ่งพา dependency ที่ไม่จำเป็น",
+    },
   },
   {
     title: "Graphics",
-    note: "Visual identities, posters, and product imagery across print and screen.",
+    note: {
+      en: "Visual identities, posters, and product imagery across print and screen.",
+      th: "อัตลักษณ์ทางภาพ โปสเตอร์ และภาพสินค้า ทั้งสำหรับงานพิมพ์และหน้าจอ",
+    },
   },
 ];
 
 export const nav = [
-  { href: "/", label: "Home" },
-  { href: "/projects", label: "Work" },
-  { href: "/archive", label: "Archive" },
-  { href: "/profile#about", label: "About" },
-  { href: "/profile#contact", label: "Contact" },
+  { href: "/", key: "home" as const },
+  { href: "/projects", key: "work" as const },
+  { href: "/archive", key: "archive" as const },
+  { href: "/profile", key: "profile" as const },
 ];
