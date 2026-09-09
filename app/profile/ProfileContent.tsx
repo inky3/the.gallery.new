@@ -51,14 +51,14 @@ export default function ProfileContent() {
               <p className="text-lg text-muted mt-2">{profile.role[lang]}</p>
             </Reveal>
 
-            <Reveal delay={0.08}>
+            {/* <Reveal delay={0.08}>
               <a
                 href={profile.resumeUrl}
                 className="inline-flex items-center gap-2 bg-ink text-white px-6 py-3 text-sm mt-6 hover:bg-accent transition-colors"
               >
                 {t.profileLabels.downloadResume}
               </a>
-            </Reveal>
+            </Reveal> */}
 
             <Reveal delay={0.14} className="mt-10 max-w-xl">
               <h2 className="font-display text-2xl">{t.profileLabels.summary}</h2>

@@ -350,6 +350,7 @@ export const projects: Project[] = [
       { src: `${IMG}/project/thememories/about.jpg`, alt: "The Memories about page" },
     ],
   },
+  /* Not finished yet — commented out for now
   {
     slug: "edgame",
     plate: "Plate 06",
@@ -398,6 +399,7 @@ export const projects: Project[] = [
       },
     ],
   },
+  */
 ];
 
 export type GalleryItem = { title: string; img: string };
