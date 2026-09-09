@@ -22,7 +22,7 @@ export default function Footer() {
             <li><Link href="/archive" className="hover:text-accent-glow transition-colors">{t.nav.archive}</Link></li>
             <li><Link href="/profile" className="hover:text-accent-glow transition-colors">{t.nav.profile}</Link></li>
             <li>
-              <a href={profile.resumeUrl} className="hover:text-accent-glow transition-colors">
+              <a href={profile.resumeUrl} download className="hover:text-accent-glow transition-colors">
                 {t.footer.resume}
               </a>
             </li>

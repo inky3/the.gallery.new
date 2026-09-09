@@ -49,6 +49,7 @@ export default function HomePage() {
           </Link>
           <a
             href={profile.resumeUrl}
+            download
             className="inline-flex items-center gap-2 border border-ink px-6 py-3 text-sm hover:bg-ink hover:text-white transition-colors"
           >
             {t.hero.ctaResume}

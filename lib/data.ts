@@ -20,7 +20,7 @@ export const profile = {
   facebookLabel: "Boom Krittanan",
   github: "https://github.com/inky3/the.gallery",
   languages: ["Thai", "US English"],
-  resumeUrl: "/resume.pdf",
+  resumeUrl: "/Krittanan%20Atireglarp-Resume.pdf",
   summary: {
     en: "Graphic design student since 2022 at Suan Sunandha Rajabhat University. Alongside coursework, I've built experience in graphic design and taught myself coding and UX/UI design in my free time. I also play chess to keep my logical thinking sharp, and I'm always looking for new challenges to grow my skills.",
     th: "นักศึกษาออกแบบกราฟิกตั้งแต่ปี 2022 ที่มหาวิทยาลัยราชภัฏสวนสุนันทา นอกเหนือจากการเรียน ผมสั่งสมประสบการณ์ด้านกราฟิกดีไซน์ และฝึกฝนการเขียนโค้ดกับ UX/UI ด้วยตัวเองในเวลาว่าง ผมยังเล่นหมากรุกสากลเพื่อฝึกความคิดเชิงตรรกะ และมองหาความท้าทายใหม่ ๆ เพื่อพัฒนาทักษะอยู่เสมอ",
@@ -350,7 +350,6 @@ export const projects: Project[] = [
       { src: `${IMG}/project/thememories/about.jpg`, alt: "The Memories about page" },
     ],
   },
-  /* Not finished yet — commented out for now
   {
     slug: "edgame",
     plate: "Plate 06",
@@ -358,20 +357,47 @@ export const projects: Project[] = [
     category: "Coding · Educational Game",
     title: "Little Guide EDMedia",
     summary:
-      "An English-learning game for primary school students, built around image, sound, and interaction, on web and desktop.",
+      "An English-learning game for primary school students, built around image, sound, and interaction, shipped to both web and desktop.",
     cover: `${IMG}/project/edgame/index.png`,
     year: "2025",
-    role: "Frontend Development, Game Logic, Audio System, Desktop Packaging",
-    stack: "React, JavaScript, Tauri, HTML, CSS",
+    role: "Frontend Development, Game Logic, UI/UX, Desktop Packaging",
+    stack: "React 19, Vite, React Router, Tauri 2",
     featured: false,
-    links: [{ label: "Open project", url: "https://edgame.vercel.app" }],
+    links: [
+      { label: "Open project", url: "https://edgame.vercel.app" },
+      { label: "Source", url: "https://github.com/inky3/edgame" },
+    ],
     sections: [
       {
         id: "overview",
         heading: "Overview",
         paragraphs: [
-          "An English-learning game aimed at primary school students, built to teach through play — visual and audio cues paired with interactive challenges. Ships as both a web app and a packaged desktop application via Tauri.",
+          "An English-learning game aimed at primary school students, built to teach through play — visual and audio cues paired with interactive challenges rather than a worksheet-style drill.",
         ],
+      },
+      {
+        id: "platform",
+        heading: "Platform",
+        bullets: [
+          "Web build on Vite + React 19, deployed to Vercel",
+          "Desktop build packaged with Tauri 2, sharing the same React codebase",
+          "React Router handles navigation between lessons/screens",
+          "Icon system via lucide-react, kept lightweight for younger devices",
+        ],
+      },
+      {
+        id: "design-goals",
+        heading: "Design goals",
+        bullets: [
+          "Keep instructions readable for early readers — short text, strong visual cues",
+          "Immediate feedback on every interaction, so the game teaches without a teacher present",
+          "One codebase for both a browser build and an installable desktop app, to fit different school computer setups",
+        ],
+      },
+      {
+        id: "status",
+        heading: "Status",
+        paragraphs: ["Actively developed — 70+ commits since the project started. Still iterating on new levels and content."],
       },
     ],
   },
@@ -382,25 +408,53 @@ export const projects: Project[] = [
     category: "Coding · AI Platform",
     title: "EspressoAI",
     summary:
-      "An AI assistant platform bringing several AI workflows into one workspace — designed, built, and wired up end to end.",
+      "A multi-model AI assistant workspace — chat, document analysis, and diagram generation across several LLM providers, designed and built end to end.",
     cover: `${IMG}/project/espressoai/espressoindex.png`,
     year: "2025",
-    role: "UX/UI Design, Frontend Development, Backend Development, Database Design, AI Integration",
-    stack: "Next.js, TypeScript, Firebase, Google Gemini API, Tailwind CSS",
+    role: "UX/UI Design, Frontend Development, Backend Development, AI Integration",
+    stack: "Next.js 16, React 19, Tailwind CSS v4, Firebase, Vercel AI SDK",
     featured: true,
-    links: [{ label: "Open project", url: "https://espresso-alpha-v1.vercel.app" }],
+    links: [
+      { label: "Open project", url: "https://seb-ai-alpha.vercel.app" },
+      { label: "Source", url: "https://github.com/inky3/Espresso" },
+    ],
     sections: [
       {
         id: "overview",
         heading: "Overview",
         paragraphs: [
-          "A platform built to bring AI tools into a single workspace, end to end — UX/UI, frontend, backend, database schema, and the AI integration itself.",
+          "An AI assistant platform built to bring several AI workflows into one workspace instead of switching between tools — chat, document analysis, and diagram generation, designed, built, and wired up end to end.",
         ],
+      },
+      {
+        id: "capabilities",
+        heading: "Capabilities",
+        bullets: [
+          "Multi-provider chat — routes across Google Gemini, Groq, OpenRouter, and OpenAI through the Vercel AI SDK",
+          "PDF document analysis — extracts and reasons over uploaded PDFs",
+          "Markdown-formatted responses with GitHub-flavoured tables and code blocks",
+          "Mermaid diagram rendering — the assistant can generate and render flowcharts and diagrams inline",
+        ],
+      },
+      {
+        id: "architecture",
+        heading: "Architecture",
+        bullets: [
+          "Next.js 16 App Router on React 19",
+          "Firebase for auth and data persistence",
+          "Zod for schema validation on AI responses and forms",
+          "Tailwind CSS v4 for styling, Framer Motion for interface motion",
+        ],
+      },
+      {
+        id: "status",
+        heading: "Status",
+        paragraphs: ["Live alpha build, still under active development — the current focus is reliability across providers and refining the document-analysis flow."],
       },
     ],
   },
-  */
 ];
+
 
 export type GalleryItem = { title: string; img: string };
 export type GalleryCategory = {
