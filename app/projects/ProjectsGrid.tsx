@@ -3,10 +3,10 @@
 import Reveal from "@/components/Reveal";
 import WorkCard from "@/components/WorkCard";
 import { projects } from "@/lib/data";
-import { useLanguage } from "@/lib/i18n";
+import { useLanguage, L } from "@/lib/i18n";
 
 export default function ProjectsGrid() {
-  const { t } = useLanguage();
+  const { t, lang } = useLanguage();
   return (
     <div className="mx-auto max-w-[1280px] px-4 md:px-16 pt-16 pb-24">
       <Reveal>
@@ -21,9 +21,9 @@ export default function ProjectsGrid() {
             <WorkCard
               href={`/projects/${p.slug}`}
               plate={p.plate}
-              category={p.category}
+              category={L(p.category, lang)}
               title={p.title}
-              summary={p.summary}
+              summary={L(p.summary, lang)}
               cover={p.cover}
               status={p.status}
             />

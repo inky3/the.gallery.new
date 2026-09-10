@@ -62,6 +62,13 @@ const en = {
     description:
       "Case studies from client work and personal experiments — research, UX/UI, and the front-end builds behind them.",
   },
+  projectDetail: {
+    backToProjects: "← Back to all projects",
+    year: "Year",
+    role: "Role",
+    stack: "Stack",
+    plates: "Plates",
+  },
   footer: {
     tagline: "A personal museum of client work, experiments, and the pieces still in progress.",
     quickLinks: "Quick links",
@@ -127,6 +134,13 @@ const th: Dict = {
     heading: "ผลงานที่คัดสรร",
     description: "เคสสตัดี้จากงานลูกค้าและโปรเจกต์ส่วนตัว — งานวิจัย UX/UI และการพัฒนาฟรอนต์เอนด์เบื้องหลัง",
   },
+  projectDetail: {
+    backToProjects: "← กลับไปหน้าผลงานทั้งหมด",
+    year: "ปี",
+    role: "บทบาท",
+    stack: "เทคโนโลยีที่ใช้",
+    plates: "ภาพประกอบ",
+  },
   footer: {
     tagline: "พิพิธภัณฑ์ส่วนตัวของงานลูกค้า การทดลอง และชิ้นงานที่ยังทำอยู่",
     quickLinks: "ลิงก์ด่วน",
@@ -171,4 +185,13 @@ export function useLanguage() {
   const ctx = useContext(LanguageContext);
   if (!ctx) throw new Error("useLanguage must be used within LanguageProvider");
   return ctx;
+}
+
+/** A string that's either the same in both languages, or split per language. */
+export type Localized = string | { en: string; th: string };
+
+/** Resolve a Localized value for the current language, with an English fallback. */
+export function L(value: Localized | undefined, lang: Lang): string {
+  if (!value) return "";
+  return typeof value === "string" ? value : value[lang] ?? value.en;
 }

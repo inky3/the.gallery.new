@@ -4,7 +4,7 @@ import Link from "next/link";
 import Reveal from "@/components/Reveal";
 import WorkCard from "@/components/WorkCard";
 import { focusAreas, profile, projects } from "@/lib/data";
-import { useLanguage } from "@/lib/i18n";
+import { useLanguage, L } from "@/lib/i18n";
 
 export default function HomePage() {
   const { t, lang } = useLanguage();
@@ -93,9 +93,9 @@ export default function HomePage() {
             <WorkCard
               href={`/projects/${heroFeature.slug}`}
               plate={heroFeature.plate}
-              category={heroFeature.category}
+              category={L(heroFeature.category, lang)}
               title={heroFeature.title}
-              summary={heroFeature.summary}
+              summary={L(heroFeature.summary, lang)}
               cover={heroFeature.cover}
               status={heroFeature.status}
               large
@@ -106,9 +106,9 @@ export default function HomePage() {
               <WorkCard
                 href={`/projects/${p.slug}`}
                 plate={p.plate}
-                category={p.category}
+                category={L(p.category, lang)}
                 title={p.title}
-                summary={p.summary}
+                summary={L(p.summary, lang)}
                 cover={p.cover}
                 status={p.status}
               />

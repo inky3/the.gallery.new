@@ -1,32 +1,35 @@
 "use client";
 
+import { motion } from "framer-motion";
 import { useLanguage } from "@/lib/i18n";
 
 export default function LanguageToggle({ dark = true }: { dark?: boolean }) {
   const { lang, setLang } = useLanguage();
 
-  const base = "flex items-center border text-xs font-mono overflow-hidden";
-  const border = dark ? "border-white/30" : "border-ink/30";
+  const track = dark ? "bg-white/10" : "bg-ink/10";
+  const inactiveText = dark ? "text-white/55 hover:text-white" : "text-ink/55 hover:text-ink";
 
   return (
-    <div className={`${base} ${border}`}>
-      {(["EN", "TH"] as const).map((code) => {
-        const value = code.toLowerCase() as "en" | "th";
+    <div className={`relative flex items-center rounded-full p-0.5 text-xs font-mono ${track}`}>
+      {(["en", "th"] as const).map((value) => {
         const active = lang === value;
         return (
           <button
-            key={code}
+            key={value}
             onClick={() => setLang(value)}
             aria-pressed={active}
-            className={`px-2.5 py-1.5 transition-colors ${
-              active
-                ? "bg-accent text-white"
-                : dark
-                ? "text-white/60 hover:text-white"
-                : "text-ink/60 hover:text-ink"
+            className={`relative z-10 px-3 py-1 rounded-full transition-colors ${
+              active ? "text-white" : inactiveText
             }`}
           >
-            {code}
+            {active && (
+              <motion.span
+                layoutId="lang-pill"
+                className="absolute inset-0 -z-10 rounded-full bg-accent"
+                transition={{ type: "spring", stiffness: 500, damping: 34 }}
+              />
+            )}
+            {value.toUpperCase()}
           </button>
         );
       })}
