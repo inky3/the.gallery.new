@@ -358,7 +358,7 @@ export const projects: Project[] = [
     title: "Little Guide EDMedia",
     summary:
       "An English-learning game for primary school students, built around image, sound, and interaction, shipped to both web and desktop.",
-    cover: `${IMG}/project/edgame/index.png`,
+    cover: `${IMG}/project/edgame.png`,
     year: "2025",
     role: "Frontend Development, Game Logic, UI/UX, Desktop Packaging",
     stack: "React 19, Vite, React Router, Tauri 2",
@@ -409,7 +409,7 @@ export const projects: Project[] = [
     title: "EspressoAI",
     summary:
       "A multi-model AI assistant workspace — chat, document analysis, and diagram generation across several LLM providers, designed and built end to end.",
-    cover: `${IMG}/project/espressoai/espressoindex.png`,
+    cover: `${IMG}/project/espressoai.png`,
     year: "2025",
     role: "UX/UI Design, Frontend Development, Backend Development, AI Integration",
     stack: "Next.js 16, React 19, Tailwind CSS v4, Firebase, Vercel AI SDK",
